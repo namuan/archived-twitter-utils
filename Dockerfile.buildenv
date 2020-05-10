@@ -1,0 +1,10 @@
+FROM python:2.7
+
+RUN apt update -y && \
+    pip install twine
+
+WORKDIR /app
+
+COPY . .
+
+ENTRYPOINT ["/bin/bash"]
