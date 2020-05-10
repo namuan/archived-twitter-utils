@@ -18,3 +18,4 @@ venv*
 setup.py.bak
 .idea/
 geckodriver.log
+*.tweets.json
