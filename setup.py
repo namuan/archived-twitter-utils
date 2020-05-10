@@ -19,11 +19,20 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 version = datetime.now().strftime("%Y%m%d")
-long_description = open('README.md').read()
+
+# Get the long description from the relevant file
+try:
+    # in addition to pip install pypandoc, might have to: apt install -y pandoc
+    import pypandoc
+
+    long_description = pypandoc.convert('README.md', 'rst')
+except (IOError, ImportError, OSError) as e:
+    print("Error converting README.md to rst:", str(e))
+    long_description = open('README.md').read()
 
 setup(
     name='twitter-utils',
-    version='0.1.' + version,
+    version='0.2.' + version,
     url='https://github.com/namuan/twitter-utils',
     license='MIT',
     author='DeskRiders Dev',

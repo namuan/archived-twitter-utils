@@ -15,7 +15,7 @@ The following sub-commands are currently implemented
 #### tweets_between
 
 Download all tweet identifiers for an account between given dates.
-Stores all tweet identifies in a file with the format "<twitter-handle>-<since-date>-<until-date>.txt".
+Stores all tweet identifies in a file with the format "<twitter-handle>-<since-date>-<until-date>.tweets.json".
 
 Sample run:
 ```
@@ -42,7 +42,7 @@ $ twitter-utils parent-tweet --account plastered41 --tweetid 1259071349152272386
 #### download_replies
 
 Find all the replies of a given tweet. 
-Stores all tweet identifies in a file with the format "<twitter-handle>-<status-id>.txt".
+Stores all tweet identifies in a file with the format "<twitter-handle>-<status-id>.tweets.json".
 
 Sample run:
 ```
@@ -56,8 +56,8 @@ $ twitter-utils download-replies --account DashCamTwats --tweetid 12590577032861
 
 #### Selecting WebDriver
 
-`twitter-utils` uses Firefox by default but it can be overridden by providing an alternate browser.
-Currently only supporting Firefox, Safari and Chrome.  
+`twitter-utils` uses Firefox by default, but it can be overridden by providing an alternate browser.
+Supporting Firefox, Safari and Chrome.  
 
 To use Safari instead of Firefox, pass the `--browser` option before specifying the sub-command.
 
@@ -104,6 +104,12 @@ $ make package
 ```
 
 Enter the username and password for pypi.org repo when prompted
+
+### Similar Tools
+
+[twarc](https://github.com/DocNow/twarc) A command line tool (and Python library) for archiving Twitter JSON
+
+
 
 ### License
 
