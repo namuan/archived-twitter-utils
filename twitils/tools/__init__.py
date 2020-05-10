@@ -7,7 +7,11 @@ class BrowserSession:
         self.session = None
 
     def start(self):
-        if self.browser == "firefox":
+        if self.browser == "safari":
+            self.session = webdriver.Safari()
+        elif self.browser == "chrome":
+            self.session = webdriver.Chrome()
+        else:
             self.session = webdriver.Firefox()
 
     def stop(self):

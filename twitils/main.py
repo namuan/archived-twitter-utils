@@ -12,6 +12,7 @@ from twitils.tools.tweets_between import grab_tweets_between
 @click.option("--browser", help="Selenium Browser", default="firefox")
 def cli(browser):
     click.echo("Twitter Utilities: Using Browser {}".format(browser))
+    session.update_browser(browser)
 
 
 @cli.command()
