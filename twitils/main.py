@@ -1,17 +1,17 @@
 from datetime import date
 
 import click
-from selenium import webdriver
 
-from twitils.tools import start_session, stop_session
+from twitils.tools import session
 from twitils.tools.download_replies import grab_replies
 from twitils.tools.parent_tweet import grab_parent
 from twitils.tools.tweets_between import grab_tweets_between
 
 
 @click.group()
-def cli():
-    click.echo("Twitter Utilities")
+@click.option("--browser", help="Selenium Browser", default="firefox")
+def cli(browser):
+    click.echo("Twitter Utilities: Using Browser {}".format(browser))
 
 
 @cli.command()
@@ -19,9 +19,9 @@ def cli():
 @click.option("--tweetid", help="Twitter Status Id", required=True)
 def parent_tweet(account, tweetid):
     click.echo("Fetching parent of {} tweet in {} account".format(tweetid, account))
-    start_session(webdriver.Firefox())
+    session.start()
     grab_parent(account, tweetid)
-    stop_session()
+    session.stop()
 
 
 @cli.command()
@@ -29,9 +29,9 @@ def parent_tweet(account, tweetid):
 @click.option("--tweetid", help="Twitter Status Id", required=True)
 def download_replies(account, tweetid):
     click.echo("Downloading replies of {} tweet in {} account".format(tweetid, account))
-    start_session(webdriver.Firefox())
+    session.start()
     grab_replies(account, tweetid)
-    stop_session()
+    session.stop()
 
 
 @cli.command()
@@ -42,6 +42,6 @@ def tweets_between(account, since, until):
     click.echo("Downloading tweets of {} tweet from {} to {}".format(account, since, until))
     since = date.fromisoformat(since)
     until = date.fromisoformat(until)
-    start_session(webdriver.Firefox())
+    session.start()
     grab_tweets_between(account, since, until)
-    stop_session()
+    session.stop()

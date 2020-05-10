@@ -2,7 +2,7 @@ import re
 
 from time import sleep
 
-from twitils.tools import get_session
+from twitils.tools import session
 
 DELAY = 5  # seconds
 SELECTOR = "//*[@role='article']"
@@ -13,17 +13,17 @@ def url_builder(from_account, tweet_id):
 
 
 def get_first_tweet_on_page():
-    tweets_on_page = get_session().find_elements_by_xpath(SELECTOR)
+    tweets_on_page = session.current().find_elements_by_xpath(SELECTOR)
     return tweets_on_page[0]
 
 
 def scroll_to_top():
     sleep(DELAY)
-    get_session().execute_script("window.scrollTo(0, 10);")
+    session.current().execute_script("window.scrollTo(0, 10);")
 
 
 def get_tweets_on_page():
-    tweets_on_page = get_session().find_elements_by_xpath(SELECTOR)
+    tweets_on_page = session.current().find_elements_by_xpath(SELECTOR)
     no_of_tweets_on_page = len(tweets_on_page)
     print("🔄 Total number of tweets on screen: {}".format(no_of_tweets_on_page))
     return tweets_on_page, no_of_tweets_on_page
@@ -31,13 +31,13 @@ def get_tweets_on_page():
 
 def scroll_to_end():
     sleep(DELAY)  # sleep before scrolling
-    get_session().execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    session.current().execute_script("window.scrollTo(0, document.body.scrollHeight);")
     sleep(DELAY)  # For the page to catch up before we count again
     print("⬇️ Scroll down")
 
 
 def scroll_to_last_page(full_url):
-    get_session().get(full_url)
+    session.current().get(full_url)
     sleep(DELAY)
 
     tweets_with_html = {}

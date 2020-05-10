@@ -1,4 +1,4 @@
-from twitils.tools import get_session
+from twitils.tools import session
 from twitils.tools.navigation import (
     scroll_to_top,
     get_first_tweet_on_page,
@@ -10,7 +10,7 @@ from twitils.tools.writer import write_tweet_ids
 
 
 def find_parent_tweet(mentioned_tweet):
-    get_session().get(mentioned_tweet)
+    session.current().get(mentioned_tweet)
     scroll_to_top()
 
     parent_tweet = get_first_tweet_on_page()

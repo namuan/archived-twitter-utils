@@ -1,14 +1,23 @@
-browser = None
+from selenium import webdriver
 
 
-def start_session(driver):
-    global browser
-    browser = driver
+class BrowserSession:
+    def __init__(self, given_browser="firefox"):
+        self.browser = given_browser
+        self.session = None
+
+    def start(self):
+        if self.browser == "firefox":
+            self.session = webdriver.Firefox()
+
+    def stop(self):
+        self.session.close()
+
+    def current(self):
+        return self.session
+
+    def update_browser(self, new_browser):
+        self.browser = new_browser
 
 
-def stop_session():
-    browser.close()
-
-
-def get_session():
-    return browser
+session = BrowserSession()
