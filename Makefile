@@ -8,10 +8,10 @@ black: ## Runs black for code formatting
 clean: ## Clean package
 	rm -rf build dist
 
-test: black ## Run all unit tests
-	export PYTHONPATH=`pwd`:$PYTHONPATH && pytest tests
+local: black ## Run all unit tests
+	python local_main.py
 
-package: test
+package: clean
 	./pypi.sh
 
 .PHONY: help

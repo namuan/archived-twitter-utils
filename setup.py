@@ -3,7 +3,7 @@ import sys
 from datetime import datetime
 from setuptools import find_packages, setup
 
-dependencies = ['click']
+dependencies = ['click', 'selenium']
 
 # 'setup.py publish-test' shortcut
 if sys.argv[-1] == 'publish-test':
@@ -38,7 +38,7 @@ setup(
     install_requires=dependencies,
     entry_points={
         'console_scripts': [
-            'twitter-utils = twitils.main:main',
+            'twitter-utils = twitils.main:cli',
         ],
     },
     classifiers=[
