@@ -23,7 +23,7 @@ long_description = open('README.md').read()
 
 setup(
     name='twitter-utils',
-    version='0.0.' + version,
+    version='0.1.' + version,
     url='https://github.com/namuan/twitter-utils',
     license='MIT',
     author='DeskRiders Dev',
