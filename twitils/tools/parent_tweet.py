@@ -15,7 +15,7 @@ def find_parent_tweet(mentioned_tweet):
 
     parent_tweet = get_first_tweet_on_page()
     tweet_html = parent_tweet.get_attribute("outerHTML")
-    return extract_data_from(tweet_html)
+    return extract_data_from(tweet_html, parent_tweet.text)
 
 
 def grab_parent(from_account, tweet_id):
