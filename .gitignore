@@ -19,3 +19,6 @@ setup.py.bak
 .idea/
 geckodriver.log
 *.tweets.json
+backroom/
+twarc.log
+fireprofile

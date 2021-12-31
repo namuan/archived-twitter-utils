@@ -4,6 +4,10 @@ Collection of twitter utilities.
 
 ### Installation
 
+Once generated, create output for twarc
+
+nmn$ cat  | jq '.[] | @text' | tr -d '\"' > ~/workspace/twarc-work/ids.txt
+
 ```
 $ pip install twitter-utils
 ```
@@ -54,7 +58,13 @@ $ twitter-utils download-replies --account DashCamTwats --tweetid 12590577032861
 📝 Replies(identifiers) written in DashCamTwats_1259057703286116352.txt
 ```
 
-#### Selecting WebDriver
+#### Get tweet ids from list of files in a directory
+
+```shell
+find backroom/raw-tweets/.../*.html | while read file; do basename $file ".html"; done > backroom/twarc-tweet-ids/....txt
+```
+
+#### Selecting WebDriver
 
 `twitter-utils` uses Firefox by default, but it can be overridden by providing an alternate browser.
 Supporting Firefox, Safari and Chrome.  
@@ -108,8 +118,6 @@ Enter the username and password for pypi.org repo when prompted
 ### Similar Tools
 
 [twarc](https://github.com/DocNow/twarc) A command line tool (and Python library) for archiving Twitter JSON
-
-
 
 ### License
 

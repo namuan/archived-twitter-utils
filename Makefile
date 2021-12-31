@@ -5,11 +5,22 @@ export PROJECTNAME=$(shell basename "$(PWD)")
 black: ## Runs black for code formatting
 	black twitils --exclude generated
 
+setup: clean ## Re-initiates virtualenv
+	rm -rf venv
+	python3 -m venv venv
+	./venv/bin/python3 -m pip install -r requirements.txt
+
+deps: ## Reinstalls dependencies
+	./venv/bin/python3 -m pip install -r requirements.txt
+
 clean: ## Clean package
 	rm -rf build dist
 
-local: black ## Run all unit tests
-	python local_main.py
+local: black ## Run local main
+	./venv/bin/python3 local_main.py
+
+tests: clean ## Run all unit tests
+	export PYTHONPATH=`pwd`:$PYTHONPATH && ./venv/bin/pytest tests
 
 package: clean
 	./pypi.sh

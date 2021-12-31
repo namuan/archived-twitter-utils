@@ -12,7 +12,7 @@ class BrowserSession:
         elif self.browser == "chrome":
             self.session = webdriver.Chrome()
         else:
-            self.session = webdriver.Firefox()
+            self.session = webdriver.Firefox("fireprofile") # Add CLI argument
 
     def stop(self):
         self.session.close()

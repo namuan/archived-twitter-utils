@@ -6,7 +6,7 @@ from twitils.tools.navigation import (
     extract_data_from,
     scroll_to_last_page,
 )
-from twitils.tools.writer import write_tweet_ids
+from twitils.tools.writer import write_raw_tweets
 
 
 def find_parent_tweet(mentioned_tweet):
@@ -15,14 +15,13 @@ def find_parent_tweet(mentioned_tweet):
 
     parent_tweet = get_first_tweet_on_page()
     tweet_html = parent_tweet.get_attribute("outerHTML")
-    return extract_data_from(tweet_html)
+    return extract_data_from(tweet_html, tweet_html)
 
 
 def grab_replies(from_account, tweet_id):
     tweet_url = url_builder(from_account, tweet_id)
     print(f"✅ Tweet URL: {tweet_url}")
-    tweets_element = scroll_to_last_page(tweet_url)
-    print(f"✅ Total tweets: {len(tweets_element)}")
-    output_file_name = "{}_{}.tweets.json".format(from_account, tweet_id)
-    write_tweet_ids(output_file_name, tweets_element)
-    print("📝 Replies(identifiers) written in {}".format(output_file_name))
+    all_tweets = scroll_to_last_page(tweet_url)
+    print(f"✅ Total tweets: {len(all_tweets)}")
+    output_directory = write_raw_tweets(f"replies-{from_account}-{tweet_id}", all_tweets)
+    print("📝 Replies written in {}".format(output_directory))

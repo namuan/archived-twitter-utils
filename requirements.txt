@@ -1,2 +1,5 @@
 click
 selenium
+dataset
+mistune
+python-dateutil

@@ -52,16 +52,18 @@ def scroll_to_last_page(full_url):
         while tweets_not_changed_on_screen_counter < max_count_if_tweets_dont_change:
             if no_of_tweets_on_page == last_count_tweets_on_page:
                 tweets_not_changed_on_screen_counter += 1
-                print("🤔 Tweets not changed since last {} attempts - Last count: {}".format(
-                    tweets_not_changed_on_screen_counter, last_count_tweets_on_page
-                ))
+                print(
+                    "🤔 Tweets not changed since last {} attempts - Last count: {}".format(
+                        tweets_not_changed_on_screen_counter, last_count_tweets_on_page
+                    )
+                )
             else:
                 tweets_not_changed_on_screen_counter = 0
 
             last_count_tweets_on_page = no_of_tweets_on_page
 
             for tweet in tweets_on_page:
-                tweet_html = tweet.get_attribute('outerHTML')
+                tweet_html = tweet.get_attribute("outerHTML")
                 _, status_id = extract_data_from(tweet_html, tweet.text)
                 tweets_with_html[status_id] = tweet_html
 
@@ -77,16 +79,18 @@ def scroll_to_last_page(full_url):
 
 
 def extract_data_from(tweet, tweet_text):
-    rgx = re.compile('a\stitle.*href=\"/(.*)/status/(\d+)\"')
+    rgx = re.compile('a\shref="/(\S+)/status/(\d+)"')
+
     matches = rgx.findall(tweet)
 
     twitter_handle = "unknown"
     status_id = "unknown"
 
     if not matches:
-        print("❌ Unable to find twitter status identifier in \n => {}".format(tweet_text))
+        print(
+            "❌ Unable to find twitter status identifier in \n => {}".format(tweet_text)
+        )
     else:
         twitter_handle, status_id = matches[0]
 
     return twitter_handle, status_id
-

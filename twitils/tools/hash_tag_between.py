@@ -1,7 +1,12 @@
 from datetime import timedelta
+from urllib import parse
 
 from twitils.tools.navigation import scroll_to_last_page
 from twitils.tools.writer import write_raw_tweets
+
+
+def encode(src):
+    return parse.quote_plus(src)
 
 
 def since_query_param(since):
@@ -12,14 +17,10 @@ def until_query_param(until):
     return "until%3A{}".format(until)
 
 
-def from_account_query_param(from_account):
-    return "from%3A{}".format(from_account)
-
-
-def search_query_builder(from_account, since, until):
+def search_query_builder(hash_tag, since, until):
     s = since_query_param(since)
     u = until_query_param(until)
-    f = from_account_query_param(from_account)
+    f = encode(hash_tag)
     return f"https://twitter.com/search?q=({f})%20{u}%20{s}&src=typed_query"
 
 
@@ -28,13 +29,16 @@ def date_range(since, until):
         yield since + timedelta(n)
 
 
-def grab_tweets_between(from_account, since, until):
+def search_hash_tag_between(hash_tag: str, since, until):
+    if not hash_tag.startswith("#"):
+        hash_tag = "#{}".format(hash_tag)
+
     all_tweets = {}
     for d in date_range(since, until):
-        full_url = search_query_builder(from_account, d, d + timedelta(1))
+        full_url = search_query_builder(hash_tag, d, d + timedelta(1))
         print(f"🔎 Search URL: {full_url}")
         all_tweets = {**all_tweets, **scroll_to_last_page(full_url)}
 
     print(f"✅ Total tweets: {len(all_tweets)}")
-    output_directory = write_raw_tweets(from_account, all_tweets)
+    output_directory = write_raw_tweets(hash_tag, all_tweets)
     print("📝 Tweets written in {}".format(output_directory))
