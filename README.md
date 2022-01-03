@@ -1,5 +1,7 @@
 ## twitter-utils
 
+Note: Archived. See this https://github.com/namuan/twitter-utils
+
 Collection of twitter utilities.
 
 ### Installation
